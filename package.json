@@ -1,0 +1,60 @@
+{
+  "name": "@mollycule/react-anime",
+  "version": "0.0.0",
+  "description": "React wrapper for using AnimeJS",
+  "author": {
+    "name": "Param Singh",
+    "email": "paramsinghvc@gmail.com",
+    "url": "http://paramsinghvc.github.io"
+  },
+  "repository": "https://github.com/paramsinghvc/react-anime.git",
+  "homepage": "https://github.com/paramsinghvc/react-anime#readme",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "build": "webpack",
+    "build:types": "tsc --emitDeclarationOnly",
+    "analyse": "ANALYSE=true webpack"
+  },
+  "keywords": [
+    "react",
+    "redux",
+    "hooks",
+    "useRedux",
+    "javascript",
+    "typescript",
+    "animejs",
+    "animation",
+    "anime"
+  ],
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "acorn": "^6.1.1",
+    "clean-webpack-plugin": "^2.0.2",
+    "path": "^0.12.7",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.5",
+    "webpack": "^4.31.0",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "@types/animejs": "^3.1.0",
+    "@types/react": "^16.9.11",
+    "@types/react-transition-group": "^4.2.3",
+    "@types/redux": "^3.6.0",
+    "animejs": "^3.1.0",
+    "react": "^16.12.0",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.1"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-transition-group": "^4.3.0",
+    "animejs": "^3.1.0"
+  }
+}

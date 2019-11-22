@@ -1,0 +1,88 @@
+Arguments: 
+  /usr/local/Cellar/node/12.6.0/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js init
+
+PATH: 
+  /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/lib:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/heroku:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/lein:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/command-not-found:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/autojump:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/brew:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/common-aliases:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/compleat:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git-extras:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git-flow:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/npm:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/osx:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/web-search:/Users/parminder.singh1/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/z:/Users/parminder.singh1/.antigen/bundles/zsh-users/zsh-syntax-highlighting:/Users/parminder.singh1/.antigen/bundles/zsh-users/zsh-autosuggestions
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  12.6.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: canceled
+      at Interface.<anonymous> (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:136724:13)
+      at Interface.emit (events.js:203:13)
+      at Interface._ttyWrite (readline.js:877:16)
+      at ReadStream.onkeypress (readline.js:189:10)
+      at ReadStream.emit (events.js:203:13)
+      at emitKeys (internal/readline.js:424:14)
+      at emitKeys.next (<anonymous>)
+      at ReadStream.onData (readline.js:1145:36)
+      at ReadStream.emit (events.js:203:13)
+      at addChunk (_stream_readable.js:294:12)
+
+npm manifest: 
+  {
+    "name": "@mollycule/react-anime",
+    "version": "0.0.0",
+    "description": "React wrapper for using AnimeJS",
+    "author": {
+      "name": "Param Singh",
+      "email": "paramsinghvc@gmail.com",
+      "url": "http://paramsinghvc.github.io"
+    },
+    "repository": "https://github.com/paramsinghvc/react-anime.git",
+    "homepage": "https://github.com/paramsinghvc/react-anime#readme",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "typings": "dist/index.d.ts",
+    "scripts": {
+      "build": "webpack",
+      "build:types": "tsc --emitDeclarationOnly",
+      "analyse": "ANALYSE=true webpack"
+    },
+    "keywords": [
+      "react",
+      "redux",
+      "hooks",
+      "useRedux",
+      "javascript",
+      "typescript",
+      "api"
+    ],
+    "files": [
+      "dist"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+      "acorn": "^6.1.1",
+      "clean-webpack-plugin": "^2.0.2",
+      "path": "^0.12.7",
+      "ts-loader": "^6.0.1",
+      "typescript": "^3.4.5",
+      "webpack": "^4.31.0",
+      "webpack-bundle-analyzer": "^3.3.2",
+      "webpack-cli": "^3.3.2"
+    },
+    "dependencies": {
+      "@types/react": "^16.9.11",
+      "@types/redux": "^3.6.0",
+      "react": "^16.8.6",
+      "redux": "^4.0.1"
+    },
+    "peerDependencies": {
+      "react": "^16.8.6",
+      "redux": "^4.0.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
