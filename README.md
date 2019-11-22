@@ -3,31 +3,32 @@
 [![Build Status][build-shield]]()
 [![MIT License][license-shield]][license-url]
 [![Contributors][contributors-shield]]()
-<img src="https://img.badgesize.io/paramsinghvc/redux-hooks/master/dist/index.js?compression=gzip&label=gzip+size&max=3000&softmax=2000">
+<img src="https://img.badgesize.io/paramsinghvc/react-anime/master/dist/index.js?compression=gzip&label=gzip+size&max=3000&softmax=2000">
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/paramsinghvc/redux-hooks">
-    <img src="https://user-images.githubusercontent.com/4329912/57970576-72d80a00-79a0-11e9-81c3-57465a997044.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/paramsinghvc/react-anime">
+    <img src="https://user-images.githubusercontent.com/4329912/69420951-d115e900-0d45-11ea-955e-476fdd43a44f.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">useRedux React Hook</h3>
+  <h3 align="center">React wrapper component &lt;Anime /&gt; for animejs</h3>
 
   <p align="center">
-    Making redux easy to use with React Hooks Api
+    Usher life to your React Apps easily
     <br />
-    <a href="https://www.npmjs.com/package/@mollycule/redux-hook"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://www.npmjs.com/package/@mollycule/react-anime"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://codesandbox.io/s/typescript-redux-3bb54?fontsize=14">View Demo</a>
     ·
-    <a href="https://github.com/paramsinghvc/redux-hooks/issues">Report Bug</a>
+    <a href="https://github.com/paramsinghvc/react-anime/issues">Report Bug</a>
     ·
-    <a href="https://github.com/paramsinghvc/redux-hooks/issues">Request Feature</a>
+    <a href="https://github.com/paramsinghvc/react-anime/issues">Request Feature</a>
     .
-    <a href="https://www.npmjs.com/package/@mollycule/redux-hook">NPM Link</a>
+    <a href="https://www.npmjs.com/package/@mollycule/react-anime">NPM Link</a>
   </p>
 </p>
 
@@ -52,12 +53,18 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-[React Hooks Api](https://reactjs.org/docs/hooks-intro.html) has introduced a cleaner and easy way of writing React Components ever. But using Redux in hooks way is not there. Hence, useRedux is a way of using Redux in the hooks way. It's a sort of connect function using hooks api.
+[AnimeJS](https://animejs.com) has a lot to offer when to comes to do performant and literally any kind of animations possible with svg and Javascript. It supports everything from simple graphic transformations like translations, rotation, scaling to complex things like SVG morphing in a very concise api. 
+
+React Anime library is a way of incorporating these benefits of animejs in a react environment easily by simply using &lt;Anime /&gt; element passing in the transformation configs as props to various React Transition hooks.
+
+React Anime leverages the [React Transition Group](http://reactcommunity.org/react-transition-group/transition) API to run animations during various phases of React component like mounting and unmounting, which otherwise wouldn't have been possible.
 
 ### Built With
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [Webpack](https://webpack.js.org/)
+- [React Transition Group](http://reactcommunity.org/react-transition-group/transition)
+- [AnimeJS](https://animejs.com)
 
 <!-- GETTING STARTED -->
 
@@ -67,32 +74,57 @@
 
 Following Peer Dependencies are required for using redux-hooks package:
 
-- react: "^16.8.6",
-- redux: "^4.0.1"
+- react: ^16.8.0,
+- react-transition-group: ^4.3.0,
+- animejs: ^3.1.0
 
 ### Installation
 
 ```sh
-npm i @mollycule/redux-hook -S
+# Install the Peer Dependencies
+npm i react react-transition-group animejs -S
+
+# Install the typings if using a TS environment
+npm i @types/react-transition-group @types/animejs -S
+
+npm i @mollycule/react-anime -S
+```
+
+or 
+
+
+```sh
+yarn add react react-transition-group animejs
+yarn add @types/react-transition-group @types/animejs
+yarn add @mollycule/react-anime -S
 ```
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-1. Wrap the root app component with `redux-hook` provider by calling `createStoreContext<IRootState>` while specifying the shape of Redux App RootState into Generic Parameter.
+### 1. Single Element Animation
 
 ```tsx
-import { createStoreContext } from "@mollycule/redux-hook";
-
-const { Provider } = createStoreContext<IRootState>();
+import Anime from "@mollycule/react-anime";
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <MainComponent />
-      </Provider>
+      <main>
+        <Anime
+          open
+          appear
+          duration={1000}
+          onEntering={{ translateY: [-20, 0], opacity: [0, 1] }}
+          onExiting={{ translateY: -20, opacity: 0 }}
+          easing="easeOutCubic"
+        >
+          <section>
+            <p> Hola Mundo </p>
+          </section>
+        </Anime>
+      </main>
     );
   }
 }
@@ -100,48 +132,83 @@ class App extends Component {
 export default App;
 ```
 
-2. Now, we can simply use the `useRedux` hook anywhere in our app functional components as
+Below is the explanation of all the props being passed.
+
+1. **`open`**: It's used to tell animejs when to start the animation. You can pass a reactive prop to it to run it on a state prop change. 
+2. **`mountOnEnter`**: By default component will be mounted only when animation starts or when open becomes true. It can controlled through this prop.
+3. **`unmountOnExit`**: By default component will be unmounted when animation exits or when open becomes false. It can controlled through this prop.
+4. **`appear`**: Normally the child inside &lt;Anime&gt; doesn't animate when it's mounted along with &lt;Anime&gt; as open set as true. Setting **`appear`** to true is important to view the child element transition or animate while mounting along with &lt;Anime&gt;. Read more [here](http://reactcommunity.org/react-transition-group/transition)
+5. **`onEntering`**, **`onEntered`**, **`onExiting`**, **`onExited`**: All these props take [anime props](https://animejs.com/documentation/) config object in them that are executed on various phases of React Transition.
+6. Any anime props that can be passed into each of these props above can be given at the root level as well. For eg: `duration` can be specified at &lt;Amime duration={2000} &gt; level than at each `on*` prop level, if its same.
+
+### Imperatively controlling animation by Anime helper methods.
+
+Anime supports various helper methods for controlling the animation instance like play/pause/reset on some event. One can grab the reference of the current animation instance by passing React ref in **`animeRef`** prop as
 
 ```tsx
-import useRedux from "@mollycule/redux-hook";
-import { incrementCount, decrementCount, setIsLoading } from "./actions";
+import React, { FC, useEffect, useRef } from "react";
+import Anime from "shared/components/Anime";
+import animejs, { AnimeInstance } from "animejs";
 
-const MyComponent = props => {
-  const mapStateToProps = state => ({
-    count: state.count,
-    isLoading: state.isLoading
-  });
-  const mapDispatchToProps = {
-    incrementCount,
-    decrementCount,
-    setIsLoading
-  };
-  const mappedProps = useRedux(mapStateToProps, mapDispatchToProps);
-  const { count, incrementCounter, setIsLoading } = mappedProps;
+const MyComp: FC = () => {
+
+  const animeRef = useRef<AnimeInstance>();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (animeRef.current) {
+        animeRef.current.pause();
+        // or
+        animeRef.current.reset();
+      }
+    }, 1000);
+  }, []);
+
   return (
-    <p onClick={incrementCount} onMouseOver={() => setIsLoading(true)}>
-      {count}
-    </p>
-  );
-};
+    <section>
+      <Anime
+        open
+        appear
+        duration={2000}
+        onEntering={{ translateX: [300, 0], opacity: [0.5, 1], easing: "linear" }}
+        animeRef={animeRef}
+      >
+        <span></span>
+      </Anime>
+    </section>
+  )
+}
 ```
 
-**Note**: For `mapDispatchToProps`, we can pass a normal function as well that accepts dispatch and returns an object of dispatch bound actions from it as
 
-```ts
-const mapDispatchToProps = dispatch => ({
-  authenticateUser: () => {
-    dispatch({
-      type: "AUTHENTICATE_USER"
-    });
-  },
-  setIsLoading: (status: boolean) => {
-    dispatch(setIsLoading(status));
-  }
-});
+### 2. Group or List Animation
+
+```tsx
+<Transactions>
+  <Anime
+    open
+    duration={300}
+    appear
+    onEntering={{
+      translateY: [100, 0],
+      opacity: [0, 1],
+      delay: animejs.stagger(60),
+      easing: "linear"
+    }}
+  >
+    {transactions.map(transaction => (
+      <TransactionItem key={transaction.timestamp}>
+        <Heading>
+          Exchanged from {transaction.from.currency.code} to {transaction.to.currency.code}
+        </Heading>
+        <Timestamp>{new Date(transaction.timestamp).toLocaleString()} </Timestamp>
+      </TransactionItem>
+    ))}
+  </Anime>
+</Transactions>
 ```
 
-Passing simply an object of actions, automatically bind them to dispatch using redux [`bindActionCreators`](https://redux.js.org/api/bindactioncreators). Also, you can even skip the second paramter of useRedux hook if you just want to access the props from the store.
+Simply, the &lt;Anime&gt; can be supplied a set of children and an Anime `delay` property can be used to simulate the stagger effect.
 
 <!-- CONTRIBUTING -->
 
@@ -167,7 +234,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Param Singh - [@paramsinghvc](https://github.com/paramsinghvc) - paramsinghvc@gmail.com
 
-Project Link: [https://github.com/paramsinghvc/redux-hooks](https://github.com/paramsinghvc/redux-hooks)
+Project Link: [https://github.com/paramsinghvc/react-anime](https://github.com/paramsinghvc/react-anime)
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -184,4 +251,4 @@ Project Link: [https://github.com/paramsinghvc/redux-hooks](https://github.com/p
 [license-url]: https://choosealicense.com/licenses/mit
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&colorB=0077B5
 [linkedin-url]: https://www.linkedin.com/in/paramsinghvc
-[product-screenshot]: https://user-images.githubusercontent.com/4329912/57970750-b895d200-79a2-11e9-9fdf-fcf80c8fce28.png
+[product-screenshot]: https://user-images.githubusercontent.com/4329912/69421370-d7589500-0d46-11ea-8ec1-ee98ade7bbda.png
