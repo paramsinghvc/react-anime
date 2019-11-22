@@ -3,7 +3,7 @@
 [![Build Status][build-shield]]()
 [![MIT License][license-shield]][license-url]
 [![Contributors][contributors-shield]]()
-<img src="https://img.badgesize.io/paramsinghvc/react-anime/master/dist/index.js?compression=gzip&label=gzip+size&max=3000&softmax=2000">
+<img src="https://img.badgesize.io/paramsinghvc/react-anime/master/dist/index.js?compression=gzip&label=gzip+size&max=3000&softmax=2000&style=for-the-badge">
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -22,7 +22,7 @@
     <a href="https://www.npmjs.com/package/@mollycule/react-anime"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://codesandbox.io/s/typescript-redux-3bb54?fontsize=14">View Demo</a>
+    <a href="https://codesandbox.io/s/react-anime-demo-mppmx?fontsize=14">View Demo</a>
     ·
     <a href="https://github.com/paramsinghvc/react-anime/issues">Report Bug</a>
     ·
@@ -245,10 +245,10 @@ Project Link: [https://github.com/paramsinghvc/react-anime](https://github.com/p
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat
-[contributors-shield]: https://img.shields.io/badge/contributors-1-orange.svg?style=flat
-[license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/badge/contributors-1-orange.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge
 [license-url]: https://choosealicense.com/licenses/mit
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat&logo=linkedin&colorB=0077B5
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=0077B5
 [linkedin-url]: https://www.linkedin.com/in/paramsinghvc
 [product-screenshot]: https://user-images.githubusercontent.com/4329912/69421370-d7589500-0d46-11ea-8ec1-ee98ade7bbda.png
