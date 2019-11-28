@@ -12,10 +12,12 @@ export declare type AnimeProps = AnimeParams & {
 export declare const AnimeComp: FC<AnimeProps & {
     status: TransitionStatus;
 }>;
-declare const Anime: FC<Pick<TransitionProps, "mountOnEnter" | "unmountOnExit" | "appear"> & AnimeProps & {
-    open: boolean;
+export declare type AnimeTransitionProps = Pick<TransitionProps, "mountOnEnter" | "unmountOnExit" | "appear" | "in"> & AnimeProps & {
+    open?: boolean;
     duration: number;
     initProps?: AnimeProps;
     animeRef?: React.MutableRefObject<AnimeInstance | undefined>;
-}>;
+};
+declare const Anime: FC<AnimeTransitionProps>;
+export declare const AnimeGroup: FC<AnimeTransitionProps>;
 export default Anime;
