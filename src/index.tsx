@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useRef } from "react";
-import { Transition } from "react-transition-group";
+import { Transition, TransitionGroup } from "react-transition-group";
 import {
   TransitionStatus,
   TransitionProps
@@ -108,17 +108,19 @@ export const AnimeComp: FC<AnimeProps & {
   );
 };
 
-const Anime: FC<Pick<
+export type AnimeTransitionProps = Pick<
   TransitionProps,
-  "mountOnEnter" | "unmountOnExit" | "appear"
+  "mountOnEnter" | "unmountOnExit" | "appear" | "in"
 > &
   AnimeProps & {
-    open: boolean;
+    open?: boolean;
     duration: number;
     initProps?: AnimeProps;
     animeRef?: React.MutableRefObject<AnimeInstance | undefined>;
-  }> = ({
-  open,
+  };
+
+const Anime: FC<AnimeTransitionProps> = ({
+  in: inProp,
   duration,
   children,
   mountOnEnter = true,
@@ -132,8 +134,8 @@ const Anime: FC<Pick<
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
       appear={appear}
-      in={open}
       timeout={duration}
+      in={inProp}
     >
       {(status: TransitionStatus) => (
         <AnimeComp
@@ -147,6 +149,10 @@ const Anime: FC<Pick<
       )}
     </Transition>
   );
+};
+
+export const AnimeGroup: FC<AnimeTransitionProps> = ({ children }) => {
+  return <TransitionGroup>{children}</TransitionGroup>;
 };
 
 export default Anime;

@@ -113,7 +113,7 @@ class App extends Component {
     return (
       <main>
         <Anime
-          open
+          in
           appear
           duration={1000}
           onEntering={{ translateY: [-20, 0], opacity: [0, 1] }}
@@ -134,10 +134,10 @@ export default App;
 
 Below is the explanation of all the props being passed.
 
-1. **`open`**: It's used to tell animejs when to start the animation. You can pass a reactive prop to it to run it on a state prop change. 
-2. **`mountOnEnter`**: By default component will be mounted only when animation starts or when open becomes true. It can controlled through this prop.
-3. **`unmountOnExit`**: By default component will be unmounted when animation exits or when open becomes false. It can controlled through this prop.
-4. **`appear`**: Normally the child inside &lt;Anime&gt; doesn't animate when it's mounted along with &lt;Anime&gt; as open set as true. Setting **`appear`** to true is important to view the child element transition or animate while mounting along with &lt;Anime&gt;. Read more [here](http://reactcommunity.org/react-transition-group/transition)
+1. **`in`**: It's used to tell animejs when to start the animation. You can pass a reactive prop to it to run it on a state prop change. 
+2. **`mountOnEnter`**: By default component will be mounted only when animation starts or when `in` becomes true. It can controlled through this prop.
+3. **`unmountOnExit`**: By default component will be unmounted when animation exits or when `in` becomes false. It can controlled through this prop.
+4. **`appear`**: Normally the child inside &lt;Anime&gt; doesn't animate when it's mounted along with &lt;Anime&gt; as `in` set as true. Setting **`appear`** to true is important to view the child element transition or animate while mounting along with &lt;Anime&gt;. Read more [here](http://reactcommunity.org/react-transition-group/transition)
 5. **`onEntering`**, **`onEntered`**, **`onExiting`**, **`onExited`**: All these props take [anime props](https://animejs.com/documentation/) config object in them that are executed on various phases of React Transition.
 6. Any anime props that can be passed into each of these props above can be given at the root level as well. For eg: `duration` can be specified at &lt;Amime duration={2000} &gt; level than at each `on*` prop level, if its same.
 
@@ -167,7 +167,7 @@ const MyComp: FC = () => {
   return (
     <section>
       <Anime
-        open
+        in
         appear
         duration={2000}
         onEntering={{ translateX: [300, 0], opacity: [0.5, 1], easing: "linear" }}
@@ -183,33 +183,73 @@ const MyComp: FC = () => {
 
 ### 2. Group or List Animation
 
-```tsx
-<Transactions>
-  <Anime
-    open
-    duration={300}
-    appear
-    onEntering={{
-      translateY: [100, 0],
-      opacity: [0, 1],
-      delay: animejs.stagger(60),
-      easing: "linear"
-    }}
-  >
-    {transactions.map(transaction => (
-      <TransactionItem key={transaction.timestamp}>
-        <Heading>
-          Exchanged from {transaction.from.currency.code} to {transaction.to.currency.code}
-        </Heading>
-        <Timestamp>{new Date(transaction.timestamp).toLocaleString()} </Timestamp>
-      </TransactionItem>
-    ))}
-  </Anime>
-</Transactions>
-```
+- #### Staggered entering animtion
 
-Simply, the &lt;Anime&gt; can be supplied a set of children and an Anime `delay` property can be used to simulate the stagger effect.
+  ```tsx
+  <Transactions>
+    <Anime
+      in
+      duration={300}
+      appear
+      onEntering={{
+        translateY: [100, 0],
+        opacity: [0, 1],
+        delay: animejs.stagger(60),
+        easing: "linear"
+      }}
+    >
+      {transactions.map(transaction => (
+        <TransactionItem key={transaction.timestamp}>
+          <Heading>
+            Exchanged from GBP to USD
+          </Heading>
+          <Timestamp>{transaction.date} </Timestamp>
+        </TransactionItem>
+      ))}
+    </Anime>
+  </Transactions>
+  ```
 
+  Simply, the &lt;Anime&gt; can be supplied a set of children and an Anime `delay` property can be used to simulate the stagger effect.
+
+- #### Dynamically entering and exiting list items using TransitionGroup
+
+  ```tsx
+  <TransitionGroup>
+    {fruits &&
+      fruits.map((fruit, i) => (
+        <Anime
+          appear
+          key={fruit}
+          onEntering={{
+            translateX: [-200, 0],
+            opacity: [0, 1],
+            duration: 200,
+            delay: i * 40
+          }}
+          onExiting={{
+            translateX: "100%",
+            opacity: 0,
+            easing: "easeInOutQuad",
+            duration: 300
+          }}
+          duration={300}
+        >
+          <ListItem key={fruit}>
+            <span>{fruit}</span>
+            <DeleteButton onClick={handleItemDelete(i)}>-</DeleteButton>
+          </ListItem>
+        </Anime>
+      ))}
+  </TransitionGroup>
+  ```
+
+  When there's a use case of dynamically adding or removing the elements from the array of elements in a state variable, each element has to be individually wrapped in it's own Anime or Transition element. The `in` prop of each element is provided by the virtue of `TransitionGroup` element in this case. It takes care of mounting and unmounting child elements by passing the accurate `in` prop accordingly.
+
+  Note: Alias of `TransitionGroup` is also exported from the library as `AnimeGroup` and can be used inter-changeably.
+  
+  `import Anime, { AnimeGroup } from "@mollycule/react-anime";`
+ 
 <!-- CONTRIBUTING -->
 
 ## Contributing
