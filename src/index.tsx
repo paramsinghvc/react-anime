@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef } from "react";
+import React, { FC, useCallback, useEffect, useRef, ReactElement } from "react";
 import { Transition, TransitionGroup } from "react-transition-group";
 import {
   TransitionStatus,
@@ -153,6 +153,76 @@ const Anime: FC<AnimeTransitionProps> = ({
 
 export const AnimeGroup: FC<AnimeTransitionProps> = ({ children }) => {
   return <TransitionGroup>{children}</TransitionGroup>;
+};
+
+export const PerformAnime: FC<{
+  perform: boolean;
+  onPerform: AnimeParams;
+  retract?: boolean;
+  duration: number;
+}> = ({ children, perform, onPerform, retract = true, duration }) => {
+  const childRef = useRef<HTMLElement[]>([]);
+  const addTargetRef = useCallback(target => {
+    if (target) childRef.current = [...childRef.current, target];
+  }, []);
+
+  const isPerformingAnimation = useRef(false);
+  const animatingInstanceRef = useRef<AnimeInstance | null>(null);
+
+  useEffect(() => {
+    if (!childRef.current) return;
+
+    if (perform === false && isPerformingAnimation.current) {
+      if (animatingInstanceRef.current) {
+        if (retract) {
+          animatingInstanceRef.current.reverse();
+          animatingInstanceRef.current.play();
+        } else {
+          (animatingInstanceRef.current as any).reset();
+        }
+      }
+      isPerformingAnimation.current = false;
+    }
+
+    if (perform === true && !isPerformingAnimation.current) {
+      anime.remove(childRef.current);
+      animatingInstanceRef.current = anime({
+        duration,
+        targets: childRef.current,
+        autoplay: false,
+        ...onPerform
+      });
+      animatingInstanceRef.current.play();
+      isPerformingAnimation.current = true;
+    }
+  }, [perform, onPerform, retract, childRef, isPerformingAnimation.current]);
+
+  function checkIfElementNotAnime(elem: ReactElement<any, any>) {
+    if (elem.type === Anime) {
+      throw new Error("Child element can't be <Anime />. Wrap it around a div");
+    }
+    return false;
+  }
+
+  return (
+    <>
+      {React.Children.map(
+        children,
+        child =>
+          React.isValidElement(child) &&
+          !checkIfElementNotAnime(child) &&
+          React.cloneElement(child, {
+            ref: target => {
+              if (target) childRef.current = [...childRef.current, target];
+              const { ref } = child as any;
+              if (ref && typeof ref === "function") {
+                ref(target);
+              }
+            }
+          } as any)
+      )}
+    </>
+  );
 };
 
 export default Anime;

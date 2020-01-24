@@ -20,4 +20,10 @@ export declare type AnimeTransitionProps = Pick<TransitionProps, "mountOnEnter" 
 };
 declare const Anime: FC<AnimeTransitionProps>;
 export declare const AnimeGroup: FC<AnimeTransitionProps>;
+export declare const PerformAnime: FC<{
+    perform: boolean;
+    onPerform: AnimeParams;
+    retract?: boolean;
+    duration: number;
+}>;
 export default Anime;
