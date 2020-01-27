@@ -177,9 +177,10 @@ export const PerformAnime: FC<{
         if (retract) {
           animatingInstanceRef.current.reverse();
           animatingInstanceRef.current.play();
-        } else {
-          (animatingInstanceRef.current as any).reset();
         }
+        // else {
+        //   (animatingInstanceRef.current as any).reset();
+        // }
       }
       isPerformingAnimation.current = false;
     }
