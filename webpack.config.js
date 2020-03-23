@@ -30,8 +30,9 @@ const config = {
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, "dist"),
-    library: 'useRedux',
-    libraryTarget: 'umd'
+    library: 'reactAnimeJs',
+    libraryTarget: 'umd',
+    globalObject: 'this'
   },
   plugins: [
     new CleanWebpackPlugin()
